@@ -1,0 +1,12 @@
+<div class="jumbotron">
+	<h3>{{ post.title|safe }}</h3>
+	<div class="card-body">
+		<p class="card-text">{{ post.text|safe }}</p>
+		<small class="post-date">
+			<time class="time">Дата {% if post.published_date %}публикации: {{ post.published_date }}
+                                                    {% else %}создания: {{ post.created_date }}
+                                    {% endif %}
+            </time>
+		</small>
+	</div>
+</div>

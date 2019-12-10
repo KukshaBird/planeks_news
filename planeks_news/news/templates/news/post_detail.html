@@ -1,0 +1,25 @@
+{% extends "news/post_base.html" %}
+
+{% block post_post %}
+
+        <div class="post">
+            {% include "news/_post.html" %}
+        </div>
+
+	<div class="comments">
+        <hr>
+        <a class="btn btn-primary btn-comment" href="{% url 'news:comment_create' pk=post.pk %}">Добавить комментарий</a>
+        {% for comment in post.post_comments.all reversed %}
+			<div class="border border-info rounded-top">
+				<p>Автор: {{ comment.author.last_name }}</p>
+				<p>{{ comment.text|safe }}</p>
+				<p>Комментарий создан: {{ comment.created_date }}</p>
+			</div>
+            </br>
+            {% empty %}
+      <p>No comments posted.</p>
+    {% endfor %}
+	</div>
+
+
+{% endblock %}
