@@ -125,6 +125,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+DATA_UPLOAD_MAX_MEMORY_SIZE = None
+
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
 AUTH_USER_MODEL = 'planeks_auth.User'
@@ -136,4 +138,4 @@ EMAIL_USE_SSL = False
 EMAIL_HOST = 'smtp.eu.mailgun.org'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'postmaster@mg.dnz144.kiev.ua'
-EMAIL_HOST_PASSWORD = "f36136b5987060022c38cc5916d8697c-5645b1f9-73b8b55a"
+EMAIL_HOST_PASSWORD = "a152740bbfaf1eef4e3d9bdeb65b015d-5645b1f9-30ccf75e"
