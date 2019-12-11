@@ -1,5 +1,7 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from django.shortcuts import render, redirect
+from django.contrib.auth import login, logout
 from django.contrib.auth import login, authenticate
 from .forms import SignupForm
 from django.contrib.sites.shortcuts import get_current_site
@@ -9,8 +11,18 @@ from tasks import celey_send_mail
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 from planeks_auth.tokens import account_activation_token
+from django.contrib.auth.views import LoginView
+
+from . import forms
 
 
+
+class UserLoginView(LoginView):
+    authentication_form = forms.UserLoginForm
+    template_name = "planeks_auth/login.html"
+
+
+# Function views
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
@@ -26,6 +38,7 @@ def signup(request):
         form = SignupForm()
     return render(request, 'planeks_auth/signup.html', {'form': form})
 
+
 def activate(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
@@ -39,3 +52,8 @@ def activate(request, uidb64, token):
         return HttpResponse('Спасибо, что подтвердили электронный адрес. Теперь вы можете зарегистрироваться.')
     else:
         return HttpResponse('Не подходящая ссылка активации.')
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('home'))

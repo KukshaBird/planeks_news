@@ -12,6 +12,17 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+
+import environ
+env = environ.Env(
+    DEBUG=(bool, False)
+)
+environ.Env.read_env('api.env')
+
+# Get mails for ADMINS
+from email.utils import getaddresses
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
@@ -21,12 +32,12 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@j$)o7_*@*$41y&&cevvoe)o^(igfm4aig+q4%aj5^6f4^yty7'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [env('ALLOWED_HOSTS'), ]
 
 
 # Application definition
@@ -38,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'planeks_auth',
     'news',
 ]
@@ -77,10 +89,7 @@ WSGI_APPLICATION = 'planeks_news.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': env.db()
 }
 
 
@@ -88,27 +97,28 @@ DATABASES = {
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    # },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {'min_length': 4}
     },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    # },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    # },
 ]
 
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Zaporozhye'
 
 USE_I18N = True
 
@@ -132,10 +142,17 @@ LOGOUT_REDIRECT_URL = "home"
 AUTH_USER_MODEL = 'planeks_auth.User'
 
 # MAILING
-# TODO: Hide vulnerable information.
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
-EMAIL_HOST = 'smtp.eu.mailgun.org'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'postmaster@mg.dnz144.kiev.ua'
-EMAIL_HOST_PASSWORD = "a152740bbfaf1eef4e3d9bdeb65b015d-5645b1f9-30ccf75e"
+EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+EMAIL_USE_SSL = env('EMAIL_USE_SSL')
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = env('EMAIL_PORT')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+ADMINS = getaddresses([env('DJANGO_ADMINS')])
+
+
+SECURE_SSL_REDIRECT = env('SECURE_SSL_REDIRECT')
+SECURE_BROWSER_XSS_FILTER = env('SECURE_BROWSER_XSS_FILTER')
+SECURE_CONTENT_TYPE_NOSNIFF = env('SECURE_CONTENT_TYPE_NOSNIFF')
+SECURE_FRAME_DENY = env('SECURE_FRAME_DENY')

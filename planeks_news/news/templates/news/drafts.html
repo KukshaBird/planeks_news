@@ -1,0 +1,23 @@
+{% extends "news/post_base.html" %}
+{% load static %}
+
+{% block post_post %}
+<h1>Новости на стадии премодерации/</h1>
+<div class="container">
+    <hr>
+    {% for post in post_list %}
+        <div class="post card mb-3">
+            <div class="card-body">
+                <img src="{{ post.image_url|default_if_none:'#' }}" class="card-img-top" alt="">
+                <h5 class="card-title"><a href="{% url 'news:post_detail' pk=post.pk %}">{{ post.title|upper }}</a></h5>
+                <p class="card-text">{{ post.text|truncatewords:50|safe }}</p>
+                <p class="card-text"><small class="text-muted">дата создания: {{ post.created_date }}</small></p>
+            </div>
+        {% if perms.news.can_moderate %}
+                <button class="btn btn-lg btn-success"><a href="{% url 'news:post_approve' pk=post.pk %}">Одобрить</a></button>
+                <button class="btn btn-lg btn-danger"><a href="{% url 'news:post_decline' pk=post.pk %}">Отклонить</a></button>
+        {% endif %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

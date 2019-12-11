@@ -11,6 +11,8 @@ django-bootstrap4 = "^1.0"
 Pillow = "^6.2"
 requests = "^2.22"
 celery = "^4.3"
+django-environ = "^0.4.5"
+django-crispy-forms = "^1.8"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"

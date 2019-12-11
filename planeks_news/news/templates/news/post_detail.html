@@ -1,11 +1,14 @@
 {% extends "news/post_base.html" %}
 
 {% block post_post %}
-
+    {% if user.is_staff or post.is_published %}
         <div class="post">
             {% include "news/_post.html" %}
         </div>
-
+    {% if perms.news.can_moderate %}
+            <button class="btn btn-lg btn-success">Одобрить</button>
+            <button class="btn btn-lg btn-danger">Отклонить</button>
+    {% endif %}
 	<div class="comments">
         <hr>
         <a class="btn btn-primary btn-comment" href="{% url 'news:comment_create' pk=post.pk %}">Добавить комментарий</a>
@@ -20,6 +23,6 @@
       <p>No comments posted.</p>
     {% endfor %}
 	</div>
-
+    {% endif %}
 
 {% endblock %}

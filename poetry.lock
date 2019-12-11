@@ -108,6 +108,22 @@ beautifulsoup4 = "*"
 
 [[package]]
 category = "main"
+description = "Best way to have Django DRY forms"
+name = "django-crispy-forms"
+optional = false
+python-versions = "*"
+version = "1.8.1"
+
+[[package]]
+category = "main"
+description = "Django-environ allows you to utilize 12factor inspired environment variables to configure your Django application."
+name = "django-environ"
+optional = false
+python-versions = "*"
+version = "0.4.5"
+
+[[package]]
+category = "main"
 description = "Internationalized Domain Names in Applications (IDNA)"
 name = "idna"
 optional = false
@@ -271,7 +287,7 @@ version = "0.6.0"
 more-itertools = "*"
 
 [metadata]
-content-hash = "0350360aaf008086e23bcb83efbe309130ab8d78087a6b50b25f2eae530c698d"
+content-hash = "d815d2a13dd3fd95d587db1b6121c14b83971aa9f2df628c637f4941f3b6c870"
 python-versions = "^3.7"
 
 [metadata.hashes]
@@ -286,6 +302,8 @@ chardet = ["84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae", "
 colorama = ["7d73d2a99753107a36ac6b455ee49046802e59d9d076ef8e47b61499fa29afff", "e96da0d330793e2cb9485e9ddfd918d456036c7149416295932478192f4436a1"]
 django = ["7c3543e4fb070d14e10926189a7fcf42ba919263b7473dceaefce34d54e8a119", "a2814bffd1f007805b19194eb0b9a331933b82bd5da1c3ba3d7b7ba16e06dc4b"]
 django-bootstrap4 = ["3da770392819267eda2f774bcf832460af00db21089b94caf4df94be8a48c48c"]
+django-crispy-forms = ["0afc0ba730f52a13c02bfbd0e1423af4577a337d73a8a0ef96f2cbbc5f345ffa", "2db711ce31f6f9ef42c16829cc3636e3819f97c1b22a3b706afed679bc417e88"]
+django-environ = ["6c9d87660142608f63ec7d5ce5564c49b603ea8ff25da595fd6098f6dc82afde", "c57b3c11ec1f319d9474e3e5a79134f40174b17c7cc024bbb2fad84646b120c4"]
 idna = ["c357b3f628cf53ae2c4c05627ecc484553142ca23264e593d327bcde5e9c3407", "ea8b7f6188e6fa117537c3df7da9fc686d485087abf6ac197f9c46432f7e4a3c"]
 importlib-metadata = ["3a8b2dfd0a2c6a3636e7c016a7e54ae04b997d30e69d5eacdca7a6c2221a1402", "41e688146d000891f32b1669e8573c57e39e5060e7f5f647aa617cd9a9568278"]
 kombu = ["2a9e7adff14d046c9996752b2c48b6d9185d0b992106d5160e1a179907a5d4ac", "67b32ccb6fea030f8799f8fd50dd08e03a4b99464ebc4952d71d8747b1a52ad1"]

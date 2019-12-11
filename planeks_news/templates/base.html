@@ -24,7 +24,38 @@
 </head>
 <body>
 	<header>
-	<h1>Новости</h1>
+		{% if user.is_authenticated %}
+		<div class="row">
+			{% if user.is_staff %}
+			<div class="col-md-auto">
+				<a href="{% url 'news:drafts' %}" class="btn btn-success">Посты на премодерации</a>
+				<a href="/admin" class="btn btn-success">Админка</a>
+			</div>
+			{% endif %}
+			<div class="col-md-auto">
+				<p class="btn btn-primary">Вы зашли как {{ user.get_username }}</p>
+			</div>
+			<div class="col col-lg-2">
+				<a class="btn btn-warning justify-content-end" href="{% url 'accounts:logout' %}">Выйти из учетной записи</a>
+		    </div>
+		</div>
+		{% else %}
+		<a href="{% url 'accounts:login' %}">
+			<button type="button" class="btn btn-primary btn-lg btn-block">Войдите в учетную запись</button>
+		</a>
+		<a href="{% url 'accounts:signup' %}">
+			<button type="button" class="btn btn-warning btn-lg btn-block">Регистрация</button>
+		</a>
+		{% endif %}
+		<a href="{% url 'home' %}"><h1 class="text-decoration-none text-center" id="main-title">Новости</h1></a>
+		<div>
+			<nav>
+				<ul class="nav nav-tabs justify-content-center">
+					<a class="nav-link" href="{% url 'home' %}"><li class="nav-item">Главная</li></a>
+					<a class="nav-link" href="{% url 'news:post_list' %}"><li class="nav-item">Новости</li></a>
+				</ul>
+			</nav>
+		</div>
 	</header>
 	<div class="container">
 	{% block content_block %}{% endblock %}

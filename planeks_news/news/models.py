@@ -10,7 +10,6 @@ class Post(models.Model):
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
-    in_premoderetion = models.BooleanField(default=True)
     is_published = models.BooleanField(default=False)
     is_declined = models.BooleanField(default=False)
     image = models.ImageField(upload_to='images', blank=True)
@@ -18,17 +17,18 @@ class Post(models.Model):
     class Meta:
         permissions = [
             ("can_moderate", "Can change text, approve and decline posts."),
+            ("can_publish", "Can publish post without pre-moderation."),
         ]
 
     def publish(self):
-        self.in_premoderetion = False
         self.is_published = True
+        self.is_declined = False
         self.published_date = timezone.now()
         self.save()
 
     def decline(self):
-        self.in_premoderetion = False
-        self.is_declined = False
+        self.is_published = False
+        self.is_declined = True
         self.save()
 
     def get_absolute_url(self):
